@@ -6,7 +6,7 @@ Luiz Henrique  | 11514334
 Aline Moura  | --
 Vicente  | -- 
 Caio  | --
--- | --
+Janyelson | 11409556
 -- | --
 
 ## Repositóros (atividades)
