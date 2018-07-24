@@ -14,6 +14,7 @@ Janyelson | 11409556
 Cada atividade estará em uma pasta a parte
 
 ### Atividade 1:
+Criar um servidor básico, com conexão HTTP e log 
 [Descrição da atividade]
 
 ### Atividade 2
