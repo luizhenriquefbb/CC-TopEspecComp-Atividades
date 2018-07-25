@@ -4,7 +4,7 @@ Grupo | Matrícula
 --------- | ------
 Luiz Henrique  | 11514334
 Aline Moura  | --
-Vicente  | -- 
+Vicente  | 11505303 
 Caio  | --
 Janyelson | 11409556
 -- | --
