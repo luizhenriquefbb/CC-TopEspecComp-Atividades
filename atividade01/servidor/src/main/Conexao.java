@@ -25,6 +25,8 @@ public class Conexao implements Runnable {
         String ct; 					//tipo de arquivo: text/html;image/jpg....
         String versao = ""; 			//versao do Protocolo.
 
+        // TODO: Fazer autenticacao
+        
         //arquivos que irao ser enviados. 
         File arquivo = new File("files/protocol.txt");
 
