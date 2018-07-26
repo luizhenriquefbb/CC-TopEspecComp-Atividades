@@ -14,6 +14,9 @@ public class Conexao implements Runnable {
 
     //caso nao seja passado um arquivo, o servidor fornece a pagina index.html
     public static String arqi = "pages/index.html";
+    public static String BADREQUEST = "pages/badRequest.html";
+    public static String NOTFOUND = "pages/notFound.html";
+    public static String UNAUTHORIZED = "pages/unauthorized.html";
 
     public Conexao(Socket s) {
         socket = s;
