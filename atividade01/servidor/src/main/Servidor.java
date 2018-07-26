@@ -2,35 +2,49 @@ package main;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
-/**
- *
- * @author lhfba
- */
 public class Servidor {
 
-    private static final int PORTA = 4444;
+    static MyLogger logger = new MyLogger("servidor.txt");
 
-    public Servidor() throws IOException {
+    private final int port;
+
+    public Servidor(int port) {
+        logger.info("Port set to " + port);
+        this.port = port;
     }
 
-    public static void main(String[] args) throws IOException {
+    public void subir() {
+        ServerSocket servidor = null;
 
-        ServerSocket server = new ServerSocket(PORTA);
-        MyLogger myLogger = new MyLogger("main.txt");
+        try {
+            servidor = new ServerSocket(port);
+            logger.info(String.format("Porta %d aberta ...", port));
 
-        while (true) {
-            myLogger.info("esperando conexao");
-            server.accept();
-            new Thread(new Conexao()).start();
+            while (true) {
+                logger.info("Aguardando clientes ...");
+                Socket cliente = servidor.accept();
+                logger.info(String.format("Cliente %s conectado!",
+                        cliente.getInetAddress().getHostAddress()));
+
+                Conexao con = new Conexao(cliente);
+                new Thread(con).start();
+            }
+        } catch (IOException e) {
+            if (servidor != null && !servidor.isClosed()) {
+                try {
+                    servidor.close();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } //compiler do not allow me to do because I should catch IOExceoption from this method also...
+            }
         }
-
     }
 
+    public static void main(String[] args) throws UnknownHostException, IOException {
+        new Servidor(8080).subir();
+    }
 }
-
-
-
-
-
-
