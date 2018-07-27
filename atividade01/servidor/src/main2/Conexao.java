@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.MyLogger;
@@ -25,6 +27,10 @@ public class Conexao implements Runnable {
     String metodo = "";
     String nomeArq = "";
     boolean semURL = false;
+    boolean autorizado = false;
+    boolean noPrompt = false;
+    boolean clienteDesconhecido = false;
+    
     MyLogger logger = null;
     final String SERVER = "servidor";
 
@@ -59,7 +65,30 @@ public class Conexao implements Runnable {
             
             //teste para ver se a requisicao nao tem URL. Quando nao tem URL especificada se envia o index.html por padrao
             semURL = request.substring(request.indexOf("/"),request.lastIndexOf("/")).equalsIgnoreCase("/ HTTP");
-            
+            if(pacote.contains("Authorization: ")){
+                String base64Credentials = "";
+                
+                // pegar autorização
+                String[] linhas = pacote.split("\n");
+                for (String linha : linhas ){
+                    if (linha.contains("Authorization: Basic ")){
+                        base64Credentials = linha.replace("Authorization: Basic ", "");
+                    }
+                }
+                
+                
+                
+                String credentials = new String(Base64.getDecoder().decode(base64Credentials),
+                Charset.forName("UTF-8"));
+                // credentials = username:password
+                final String[] values = credentials.split(":",2);
+                noPrompt = true;
+                if(values[0].equals("admin") && values[1].equals("admin"))
+                    autorizado = true;
+                else{
+                    clienteDesconhecido = true;
+                }
+            }
             //arquivos que irao ser enviados.
 //            File arquivo = new File("files/protocol.txt");
             //o nome do arquivo.
@@ -70,7 +99,7 @@ public class Conexao implements Runnable {
             //inicio da linha do pedido do cliente
             
         } catch (IOException ex) {
-            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+            logger.erro(ex.getMessage());
         }
     }
     
@@ -78,8 +107,10 @@ public class Conexao implements Runnable {
 //        switch(metodo){
 //            case "GET":
                 nomeArq = request.substring(request.indexOf("/") + 1, request.indexOf(" HTTP"));
-                if(nomeArq.equals(""))
+                if(nomeArq.equals("") && autorizado)
                     return OK;
+                else if(nomeArq.equals("") && !autorizado)
+                    return UNAUTHORIZED;
                 
                 return nomeArq;
                 
@@ -101,8 +132,8 @@ public class Conexao implements Runnable {
         try {
             trataConexao();
             
+            //            String filename = "files/protocol.txt";
             out = new PrintWriter(socket.getOutputStream());
-//            String filename = "files/protocol.txt";
             
             //endereco base das paginas a serem enviadas
             caminhoDoArquivo = new File("").getAbsolutePath();
@@ -111,9 +142,13 @@ public class Conexao implements Runnable {
             fileInput = new FileInputStream(caminhoDoArquivo);
             input = new BufferedInputStream(fileInput);
 
-
-            HttpOk(out, caminhoDoArquivo);
-
+            if(autorizado)
+                HttpOk(out, caminhoDoArquivo);
+            else if(!noPrompt)
+                HttpUnauthorized(out, caminhoDoArquivo);
+            else{
+                HttpUnauthorizedInvalid(out, caminhoDoArquivo);
+            }
             while (input.available() > 0) {
                 char c = (char) input.read();
                 out.print(c);
@@ -141,7 +176,7 @@ public class Conexao implements Runnable {
         out.println("Server: "+ SERVER);
         out.println("MIME-version: 1.0");
         out.println("Content-Type: text/html");
-        out.println("Content-length: " + new File(caminho).length());
+//        out.println("Content-length: " + new File(caminho).length());
 
     }
 
@@ -149,15 +184,24 @@ public class Conexao implements Runnable {
         out.println("HTTP/1.1 400 Bad Request");
         out.println("Server: "+ SERVER);
         out.println("Content-Type: text/html");
-        out.println("Content-length: " + new File(caminho).length());
+//        out.println("Content-length: " + new File(caminho).length());
 
     }
 
     private void HttpUnauthorized(PrintWriter out, String caminho) {
         out.println("HTTP/1.1 401 Unauthorized");
+        out.println("WWW-Authenticate: Basic realm=\"System Administrator\"");
         out.println("Server: "+ SERVER);
         out.println("Content-Type: text/html");
-        out.println("Content-length: " + new File(caminho).length());
+//        out.println("Content-length: " + new File(caminho).length());
+
+    }
+    
+    private void HttpUnauthorizedInvalid(PrintWriter out, String caminho) {
+        out.println("HTTP/1.1 401 Unauthorized");
+        out.println("Server: "+ SERVER);
+        out.println("Content-Type: text/html");
+//        out.println("Content-length: " + new File(caminho).length());
 
     }
 
@@ -166,7 +210,7 @@ public class Conexao implements Runnable {
         out.println("Server: "+ SERVER);
         out.println("MIME-version: 1.0");
         out.println("Content-Type: text/html");
-        out.println("Content-length: " + new File(caminho).length());
+//        out.println("Content-length: " + new File(caminho).length());
 
     }
     
