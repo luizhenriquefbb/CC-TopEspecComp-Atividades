@@ -29,6 +29,9 @@ final deste documento);
 
 Mais detalhes no [pdf](https://github.com/luizhenriquefbb/CC-TopEspecComp-Atividades/blob/master/atividade01/descricao_da_atividade/SW-181-Pratica1.pdf)
 
+#### Como usar:
+Ver [readme do pacote main3](https://github.com/luizhenriquefbb/CC-TopEspecComp-Atividades/tree/xico/atividade01/servidor/src/main3)
+
 ### Atividade 2
 [Descrição da atividade]
 
