@@ -43,7 +43,7 @@ public class MyLogger {
 
     public void erro(String message){
         appendArquivo(recuperaHoraSistema() + " - ERRO - " + message);
-        System.out.println(recuperaHoraSistema() + " - ERRO - " + message);
+        System.err.println(recuperaHoraSistema() + " - ERRO - " + message);
     }
 
     private void appendArquivo(String message){
