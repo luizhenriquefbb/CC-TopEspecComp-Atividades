@@ -1,4 +1,4 @@
-package main3;
+package main;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -17,6 +17,10 @@ public class Header {
     private String login_password;
     private int message_size;
 
+    /**
+     * No construtor que se faz o parse da mensagem e pega as informacoes do header
+     * @param message 
+     */
     public Header(String message) {
 
         message_size = message.length();

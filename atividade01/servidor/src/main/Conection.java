@@ -1,4 +1,4 @@
-package main3;
+package main;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import util.MyLogger;
 
 public class Conection implements Runnable {
 
@@ -15,16 +16,24 @@ public class Conection implements Runnable {
 
     private String res_header = "";
     private String res_content = "";
+    
+    private MyLogger log;
 
     public Conection(Socket client) {
+        this.log = new MyLogger("Connection.txt");
         this.client = client;
     }
 
+    @Override
     public void run() {
-        treatConnection();
+        trataConexao();
     }
 
-    public void treatConnection() {
+    /**
+     * Le e processa uma requisição.
+     * No final manda uma resposta
+     */
+    public void trataConexao() {
         byte[] data = new byte[MAX_STREAM_SIZE];
         String message = "";
 
@@ -53,26 +62,26 @@ public class Conection implements Runnable {
             if (!client_header.getMethod().equals("GET")) {
                 res_header = HttpErrorResponse.getHtmlHeader(501);
                 res_content = HttpErrorResponse.getHtmlContent(501);
-                AccessLogger.log(client, client_header, 501, res_header.length() + res_content.length());
+                log.connectionlog(client, client_header, 501, res_header.length() + res_content.length());
             } else if (!Files.exists(file_req_path) || !Files.isRegularFile(file_req_path)) {
                 res_header = HttpErrorResponse.getHtmlHeader(404);
                 res_content = HttpErrorResponse.getHtmlContent(404);
-                AccessLogger.log(client, client_header, 404, res_header.length() + res_content.length());
+                log.connectionlog(client, client_header, 404, res_header.length() + res_content.length());
             } else if (client_header.getVirtualPath().equals("host0/pageRestricted.html")) {
 
-                if (client_header.verifyLoginPassword("xico:1234")) {
+                if (client_header.verifyLoginPassword("admin:1234")) {
                     res_header = HttpErrorResponse.getHtmlHeader(200);
                     res_content = new String(Files.readAllBytes(file_req_path));
-                    AccessLogger.log(client, client_header, 200, res_header.length() + res_content.length());
+                    log.connectionlog(client, client_header, 200, res_header.length() + res_content.length());
                 } else {
                     res_header = HttpErrorResponse.getHtmlHeader(401);
                     res_content = HttpErrorResponse.getHtmlContent(401);
-                    AccessLogger.log(client, client_header, 401, res_header.length() + res_content.length());
+                    log.connectionlog(client, client_header, 401, res_header.length() + res_content.length());
                 }
             } else {
                 res_header = HttpErrorResponse.getHtmlHeader(200);
                 res_content = new String(Files.readAllBytes(file_req_path));
-                AccessLogger.log(client, client_header, 200, res_header.length() + res_content.length());
+                log.connectionlog(client, client_header, 200, res_header.length() + res_content.length());
             }
 
             PrintWriter out = new PrintWriter(client.getOutputStream(), true);
