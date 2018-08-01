@@ -5,9 +5,9 @@ Grupo | Matrícula
 Luiz Henrique  | 11514334
 Aline Moura  | 11512963
 Vicente  | 11505303 
-Caio  | --
+Caio  | 11502563
 Janyelson | 11409556
--- | --
+Matheus Monteiro | 11403745
 
 ## Repositóros (atividades)
 
@@ -30,7 +30,7 @@ final deste documento);
 Mais detalhes no [pdf](https://github.com/luizhenriquefbb/CC-TopEspecComp-Atividades/blob/master/atividade01/descricao_da_atividade/SW-181-Pratica1.pdf)
 
 #### Como usar:
-Ver [readme do pacote main3](https://github.com/luizhenriquefbb/CC-TopEspecComp-Atividades/tree/xico/atividade01/servidor/src/main3)
+Ver [readme do pacote main](https://github.com/luizhenriquefbb/CC-TopEspecComp-Atividades/tree/master/atividade01/servidor/src/main)
 
 ### Atividade 2
 [Descrição da atividade]

@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- *
+ * Um servidor simples  que cria uma thread a cada cliente que entra
  * @author luiz
  */
 public class Server {

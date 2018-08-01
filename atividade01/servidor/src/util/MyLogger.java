@@ -4,8 +4,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import main3.Header;
 
 /**
  *
@@ -38,6 +40,17 @@ public class MyLogger {
     public void debug(String message){
         appendArquivo(recuperaHoraSistema() + " - DEBUG - " + message);
         System.out.println(recuperaHoraSistema() + " - DEBUG - " + message);
+    }
+    
+    
+    public void connectionlog(Socket client, Header client_header, int code, int response_size) {
+         String message = client.getRemoteSocketAddress().toString().substring(1)
+                + " - [" + recuperaHoraSistema() + "]\n"
+                + "\"" + client_header.firstLine() + "\" " + code + " "
+                + response_size + "\n\n";
+         
+         System.out.println(message);
+         appendArquivo(message);
     }
     
 
