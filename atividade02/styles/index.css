@@ -1,0 +1,16 @@
+#content {
+  width: 100%;
+}
+
+#left-content {
+  text-align: center;
+  display: inline-block;
+  width: 20%;
+  
+}
+
+#right-content {
+  text-align: center;
+  display: inline-block;
+  width: 79%;
+}
