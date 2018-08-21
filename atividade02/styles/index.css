@@ -1,16 +1,8 @@
-#content {
+body {
   width: 100%;
+  background-color: bisque;
 }
 
-#left-content {
+h1 button{
   text-align: center;
-  display: inline-block;
-  width: 20%;
-  
-}
-
-#right-content {
-  text-align: center;
-  display: inline-block;
-  width: 79%;
 }
