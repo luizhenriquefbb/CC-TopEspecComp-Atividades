@@ -44,11 +44,6 @@ $(function(){
   if(chart != undefined && chart.length > 0) loadChart();
   updateChart();
 
-  $(".categories").click(function(){
-    sessionStorage.setItem('category', $(this).attr("id"));
-    window.location.reload();
-  });
-
   function loadProducts()
   {
     var html = "<ul>" 
@@ -117,4 +112,10 @@ function checkout()
   sessionStorage.setItem('chart', JSON.stringify(chart));
   alert("Thank for your purchase!");
   window.location.reload();
+}
+
+function getCategory(category)
+{
+	sessionStorage.setItem('category', category);
+	window.location.reload();
 }
