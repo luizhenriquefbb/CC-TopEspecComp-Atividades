@@ -14,7 +14,7 @@ $(function(){
       ];
 
       sessionStorage.setItem('categoryName', 'Category 1');
-      $("#path").append('<a href="category.html"> Category 1 </a>');
+      $("#path").append('<a"> Category 1 </a>');
       break;
     case "category2":
       data = [
@@ -25,7 +25,7 @@ $(function(){
       ];
 
       sessionStorage.setItem('categoryName', 'Category 2');
-      $("#path").append('<a href="category.html"> Category 2 </a>');
+      $("#path").append('<a"> Category 2 </a>');
       break;
     case "category3":
       data = [
@@ -36,7 +36,7 @@ $(function(){
       ];
 
       sessionStorage.setItem('categoryName', 'Category 3');
-      $("#path").append('<a href="category.html"> Category 3 </a>');
+      $("#path").append('<a"> Category 3 </a>');
       break;
   }
 
