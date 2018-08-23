@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<title>Shopping Online</title>
+<meta charset="UTF-8">
+    
+<!-- Mobile port -->    
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+<!--JavaScript -->
+<script type="text/javascript" src="../scripts/category.js"></script>
+    
+<!--My CSS file -->
+<link rel="stylesheet" href="../styles/category.css">
+    
+<body>
+  <div id="content"></div>
+    <h1> Shopping</h1>
+    <div id="left-content">
+      <h2>Categorias</h2>
+      <ul>
+        <li class="categories"> <a onclick="getCategory('category1')" href="#"> Category 1 </a> </li>
+        <li class="categories"> <a onclick="getCategory('category2')" href="#"> Category 2 </a> </li>
+        <li class="categories"> <a onclick="getCategory('category3')" href="#"> Category 3 </a> </li>
+      </ul>
+    </div>
+
+    <div id="right-content">
+    	<div id="shopping-list-hover">
+    		<p id="shopping-list"> Shopping List</p>
+    		<div id="chart"> 
+    			<p id="shopping-list-price"> Shopping List (Total:$0.0)</p>
+    		</div>
+    	</div>
+        <p id="path"> <a href="index.html"> Home </a> > </p>
+    </div>
+  </div>
+</body>
+</html>
