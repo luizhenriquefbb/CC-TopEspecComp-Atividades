@@ -33,10 +33,6 @@ Mais detalhes no [pdf](https://github.com/luizhenriquefbb/CC-TopEspecComp-Ativid
 Ver [readme do pacote main](https://github.com/luizhenriquefbb/CC-TopEspecComp-Atividades/tree/master/atividade01/servidor/src/main)
 
 ### Atividade 2
-[Descrição da atividade]
+Conforme especificações do professor, transferido para um **fork** do repositório original.
 
-...
-
-...
-
-...
+[aqui](https://github.com/luizhenriquefbb/shop-samples)
